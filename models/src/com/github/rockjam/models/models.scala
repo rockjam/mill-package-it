@@ -1,4 +1,4 @@
-package com.github.rockjam
+package com.github.rockjam.models
 
 case class Ip(origin: String)
 
