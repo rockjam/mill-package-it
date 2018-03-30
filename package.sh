@@ -2,5 +2,4 @@
 
 set -eux
 
-mill root.packageIt
-tar -cvzf dist.tar.gz -C out/root/packageIt/dest/ .
+mill show root[$1].packageIt | jq .path | xargs -I{} tar -cvzf dist.tar.gz -C {} .

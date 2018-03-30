@@ -3,10 +3,13 @@ import mill.modules.Jvm
 import mill.define.Task
 import ammonite.ops._
 
-object root extends ProjectModule {
+object root extends Cross[Root]("2.11.12", "2.12.4")
+class Root(crossScalaVersion: String) extends CrossScalaModule {
+  def scalaVersion = crossScalaVersion
+
   def millSourcePath = pwd
 
-  def moduleDeps = Seq(models)
+  def moduleDeps = Seq(models(crossScalaVersion))
 
   def ivyDeps = Agg(
     ivy"com.typesafe.akka::akka-http:10.0.13",
@@ -59,14 +62,13 @@ object root extends ProjectModule {
 
 }
 
-object models extends ProjectModule {
+object models extends Cross[Models]("2.11.12", "2.12.4")
+class Models(crossScalaVersion: String) extends CrossScalaModule {
+  def scalaVersion = crossScalaVersion
+
   def ivyDeps = Agg(
     ivy"io.circe::circe-core:0.9.3",
     ivy"io.circe::circe-generic:0.9.3",
     ivy"io.circe::circe-parser:0.9.3"
   )
-}
-
-trait ProjectModule extends ScalaModule {
-  def scalaVersion = "2.12.4"
 }
