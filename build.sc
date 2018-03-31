@@ -4,7 +4,7 @@ import mill.define.Task
 import ammonite.ops._
 
 object root extends Cross[Root]("2.11.12", "2.12.4")
-class Root(crossScalaVersion: String) extends CrossScalaModule {
+class Root(val crossScalaVersion: String) extends CrossScalaModule {
   def scalaVersion = crossScalaVersion
 
   def millSourcePath = pwd
@@ -63,7 +63,7 @@ class Root(crossScalaVersion: String) extends CrossScalaModule {
 }
 
 object models extends Cross[Models]("2.11.12", "2.12.4")
-class Models(crossScalaVersion: String) extends CrossScalaModule {
+class Models(val crossScalaVersion: String) extends CrossScalaModule {
   def scalaVersion = crossScalaVersion
 
   def ivyDeps = Agg(
